@@ -21,8 +21,10 @@ namespace moduloInventario
         private MySqlConnection conexion;
         private MySqlCommand cmd;
         private MySqlDataReader read;
-        public static string dat = "server=localhost; database=restaurante; Uid=root; pwd=andy13;";
+        public static string dat = "server=localhost; database=restaurante; Uid=root; pwd=;";
         public static string nombre = "";
+        public static MySqlDataAdapter combo;
+
         public Form1()
         {
             InitializeComponent();
@@ -32,6 +34,7 @@ namespace moduloInventario
         {
             actComboBox();
             inventario();
+            cargarInsumos();
         }
 
         private MySqlConnection ObtenerConexion()
@@ -140,6 +143,72 @@ namespace moduloInventario
             }
         }
 
+        public void insCompra(string fechaI, string fechaV, int cantidad, double precio, int idP)
+        {
+            try
+            {
+                cmd = new MySqlCommand("insert into lote (fechaIngreso,fechaVencimiento,cantidad,precio,Producto_idProducto) values ('" + fechaI + "','" + fechaV + "'," + cantidad + "," + precio + "," + idP + ");", ObtenerConexion());
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Compra Realizada");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                if (conexion.State == ConnectionState.Open)
+                {
+                    conexion.Close();
+                }
+            }
+        }
+
+        public int busIdInsumo(string nombre)
+        {
+            int cont = 0;
+
+            try
+            {
+                cmd = new MySqlCommand("Select idProducto from insumo where Nombre = '" + nombre + "';", ObtenerConexion());
+                read = cmd.ExecuteReader();
+
+                if (read.Read() == true)
+                {
+                    cont = read.GetInt32(0);
+                }
+                read.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            return cont;
+        }
+
+        public void cargarInsumos()
+        {
+
+            try
+            {
+                cmd = new MySqlCommand("Select* from insumo ;", ObtenerConexion());
+                combo = new MySqlDataAdapter(cmd);
+
+                DataTable dt = new DataTable();
+
+                combo.Fill(dt);
+
+                cBoxSelecInsumo.DisplayMember = "Nombre";
+                cBoxSelecInsumo.DataSource = dt;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
         private void btn_crearInsumo_Click(object sender, EventArgs e)
         {
             int id = validarId("idProducto", "insumo");
@@ -158,6 +227,7 @@ namespace moduloInventario
                 {
                     cmd = new MySqlCommand("insert into insumo values (" + id + ",'" + nombre + "','" + descripcion + "'," + idCategoria + "," + idMedida + ");", ObtenerConexion());
                     cmd.ExecuteNonQuery();
+                    cargarInsumos();
                     MessageBox.Show("Insumo creado");
                 }
                 catch (Exception ex)
@@ -214,7 +284,7 @@ namespace moduloInventario
             }
         }
 
-        private void txtB_precioInsumo_KeyPress(object sender, KeyPressEventArgs e)
+        private void txtPrecioInsumo_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!(char.IsNumber(e.KeyChar) || (char.IsPunctuation(e.KeyChar))) && (e.KeyChar != (char)Keys.Back))
             {
@@ -224,7 +294,7 @@ namespace moduloInventario
             }
         }
 
-        private void txtB_cantInsumo_KeyPress(object sender, KeyPressEventArgs e)
+        private void txtCantInsumo_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
             {
@@ -233,5 +303,33 @@ namespace moduloInventario
                 return;
             }
         }
+
+        private void btnCompraInsumo_Click(object sender, EventArgs e)
+        {
+            DateTime thisDay = DateTime.Today;
+            int idP;
+
+            if ((txtCantInsumo.Text == "") || (txtPrecioInsumo.Text == ""))
+            {
+                MessageBox.Show("Ingrese Datos");
+            }
+            else
+            {
+                double precio = Convert.ToDouble(txtPrecioInsumo.Text);
+                int cantidad = Convert.ToInt32(txtCantInsumo.Text);
+
+                string insumo = cBoxSelecInsumo.Text;
+                idP = busIdInsumo(insumo);
+
+                string fechaVencimiento = Convert.ToString(dateTimePicker_fecCadInsumo.Value.Year + "-" + dateTimePicker_fecCadInsumo.Value.Month + "-" + dateTimePicker_fecCadInsumo.Value.Day);
+
+                string fechaIngreso = Convert.ToString(thisDay.Year + "-" + thisDay.Month + "-" + thisDay.Day);
+
+                //MessageBox.Show(idP + ";" + fechaVencimiento + ";" + fechaIngreso);
+
+                insCompra(fechaIngreso, fechaVencimiento, cantidad, precio, idP);
+            }
+        }
+
     }
 }

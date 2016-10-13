@@ -46,14 +46,14 @@
             this.lblDescripcion = new System.Windows.Forms.Label();
             this.lblNombre = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.btn_compraInsumo = new System.Windows.Forms.Button();
+            this.btnCompraInsumo = new System.Windows.Forms.Button();
             this.dateTimePicker_fecCadInsumo = new System.Windows.Forms.DateTimePicker();
-            this.txtB_cantInsumo = new System.Windows.Forms.TextBox();
-            this.txtB_precioInsumo = new System.Windows.Forms.TextBox();
+            this.txtCantInsumo = new System.Windows.Forms.TextBox();
+            this.txtPrecioInsumo = new System.Windows.Forms.TextBox();
             this.lbl_precioInsumo = new System.Windows.Forms.Label();
             this.lbl_feCaduInsumo = new System.Windows.Forms.Label();
             this.lbl_cantInsumo = new System.Windows.Forms.Label();
-            this.cBox_selecInsumo = new System.Windows.Forms.ComboBox();
+            this.cBoxSelecInsumo = new System.Windows.Forms.ComboBox();
             this.lblInsumo = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -232,14 +232,14 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.btn_compraInsumo);
+            this.tabPage3.Controls.Add(this.btnCompraInsumo);
             this.tabPage3.Controls.Add(this.dateTimePicker_fecCadInsumo);
-            this.tabPage3.Controls.Add(this.txtB_cantInsumo);
-            this.tabPage3.Controls.Add(this.txtB_precioInsumo);
+            this.tabPage3.Controls.Add(this.txtCantInsumo);
+            this.tabPage3.Controls.Add(this.txtPrecioInsumo);
             this.tabPage3.Controls.Add(this.lbl_precioInsumo);
             this.tabPage3.Controls.Add(this.lbl_feCaduInsumo);
             this.tabPage3.Controls.Add(this.lbl_cantInsumo);
-            this.tabPage3.Controls.Add(this.cBox_selecInsumo);
+            this.tabPage3.Controls.Add(this.cBoxSelecInsumo);
             this.tabPage3.Controls.Add(this.lblInsumo);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
@@ -248,14 +248,15 @@
             this.tabPage3.Text = "Agregar Insumos";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // btn_compraInsumo
+            // btnCompraInsumo
             // 
-            this.btn_compraInsumo.Location = new System.Drawing.Point(516, 312);
-            this.btn_compraInsumo.Name = "btn_compraInsumo";
-            this.btn_compraInsumo.Size = new System.Drawing.Size(136, 23);
-            this.btn_compraInsumo.TabIndex = 11;
-            this.btn_compraInsumo.Text = "Realizar Compra";
-            this.btn_compraInsumo.UseVisualStyleBackColor = true;
+            this.btnCompraInsumo.Location = new System.Drawing.Point(516, 312);
+            this.btnCompraInsumo.Name = "btnCompraInsumo";
+            this.btnCompraInsumo.Size = new System.Drawing.Size(136, 23);
+            this.btnCompraInsumo.TabIndex = 11;
+            this.btnCompraInsumo.Text = "Realizar Compra";
+            this.btnCompraInsumo.UseVisualStyleBackColor = true;
+            this.btnCompraInsumo.Click += new System.EventHandler(this.btnCompraInsumo_Click);
             // 
             // dateTimePicker_fecCadInsumo
             // 
@@ -264,21 +265,21 @@
             this.dateTimePicker_fecCadInsumo.Size = new System.Drawing.Size(200, 20);
             this.dateTimePicker_fecCadInsumo.TabIndex = 10;
             // 
-            // txtB_cantInsumo
+            // txtCantInsumo
             // 
-            this.txtB_cantInsumo.Location = new System.Drawing.Point(176, 172);
-            this.txtB_cantInsumo.Name = "txtB_cantInsumo";
-            this.txtB_cantInsumo.Size = new System.Drawing.Size(182, 20);
-            this.txtB_cantInsumo.TabIndex = 8;
-            this.txtB_cantInsumo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtB_cantInsumo_KeyPress);
+            this.txtCantInsumo.Location = new System.Drawing.Point(176, 172);
+            this.txtCantInsumo.Name = "txtCantInsumo";
+            this.txtCantInsumo.Size = new System.Drawing.Size(182, 20);
+            this.txtCantInsumo.TabIndex = 8;
+            this.txtCantInsumo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantInsumo_KeyPress);
             // 
-            // txtB_precioInsumo
+            // txtPrecioInsumo
             // 
-            this.txtB_precioInsumo.Location = new System.Drawing.Point(176, 115);
-            this.txtB_precioInsumo.Name = "txtB_precioInsumo";
-            this.txtB_precioInsumo.Size = new System.Drawing.Size(182, 20);
-            this.txtB_precioInsumo.TabIndex = 7;
-            this.txtB_precioInsumo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtB_precioInsumo_KeyPress);
+            this.txtPrecioInsumo.Location = new System.Drawing.Point(176, 115);
+            this.txtPrecioInsumo.Name = "txtPrecioInsumo";
+            this.txtPrecioInsumo.Size = new System.Drawing.Size(182, 20);
+            this.txtPrecioInsumo.TabIndex = 7;
+            this.txtPrecioInsumo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrecioInsumo_KeyPress);
             // 
             // lbl_precioInsumo
             // 
@@ -307,13 +308,13 @@
             this.lbl_cantInsumo.TabIndex = 3;
             this.lbl_cantInsumo.Text = "Cantidad: ";
             // 
-            // cBox_selecInsumo
+            // cBoxSelecInsumo
             // 
-            this.cBox_selecInsumo.FormattingEnabled = true;
-            this.cBox_selecInsumo.Location = new System.Drawing.Point(176, 50);
-            this.cBox_selecInsumo.Name = "cBox_selecInsumo";
-            this.cBox_selecInsumo.Size = new System.Drawing.Size(182, 21);
-            this.cBox_selecInsumo.TabIndex = 1;
+            this.cBoxSelecInsumo.FormattingEnabled = true;
+            this.cBoxSelecInsumo.Location = new System.Drawing.Point(176, 50);
+            this.cBoxSelecInsumo.Name = "cBoxSelecInsumo";
+            this.cBoxSelecInsumo.Size = new System.Drawing.Size(182, 21);
+            this.cBoxSelecInsumo.TabIndex = 1;
             // 
             // lblInsumo
             // 
@@ -361,14 +362,14 @@
         private System.Windows.Forms.Label lblInsumo;
         private System.Windows.Forms.Label lbl_feCaduInsumo;
         private System.Windows.Forms.Label lbl_cantInsumo;
-        private System.Windows.Forms.ComboBox cBox_selecInsumo;
+        private System.Windows.Forms.ComboBox cBoxSelecInsumo;
         private System.Windows.Forms.Label lblCategoria;
         private System.Windows.Forms.Label lbMedida;
         private System.Windows.Forms.Label lbl_precioInsumo;
         private System.Windows.Forms.DateTimePicker dateTimePicker_fecCadInsumo;
-        private System.Windows.Forms.TextBox txtB_cantInsumo;
-        private System.Windows.Forms.TextBox txtB_precioInsumo;
-        private System.Windows.Forms.Button btn_compraInsumo;
+        private System.Windows.Forms.TextBox txtCantInsumo;
+        private System.Windows.Forms.TextBox txtPrecioInsumo;
+        private System.Windows.Forms.Button btnCompraInsumo;
         private System.Windows.Forms.ComboBox cmbCategoria;
         private System.Windows.Forms.Button btnAgregarMedida;
         private System.Windows.Forms.Button btnAgregarCategoria;
